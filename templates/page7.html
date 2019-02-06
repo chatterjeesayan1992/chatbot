@@ -1,0 +1,193 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<style>
+    .chat-input {
+        height: 100px;
+        width: 800px;
+        font-size: 10pt;
+    }
+    .chatbody{
+        margin:0 auto;
+        width:80%;
+        height:400px;
+        border:1px solid #a32020;
+        border-radius:8px;
+        font-family:Georgia;
+    }
+    .chatheader{
+        height:25px;
+        background-color:#a32020;
+        color:#fff;
+        border-top-left-radius:8px;
+        border-top-right-radius:8px;
+        padding:5px;
+        font-weight:bold;
+        font-size:17px;
+    }
+    .chat-sec{}
+    .chat-details{
+        height:320px;
+        padding:0px 10px;
+        border-bottom:1px solid #a32020;
+        overflow-y:auto;
+    }
+    .chat-form {
+        height: 25px;
+        padding: 2px 10px;
+        margin: 0 auto;
+        width:100%;
+    }
+    .chat-mic{
+        padding:2px;
+        cursor:pointer;
+        float:left;
+    }
+    .chat-form-area{
+        width:98%;
+        float:left;
+    }
+    .chatarea{
+        width:99%;
+        border-radius:4px;
+        height:32px;
+        font-family:Georgia;
+        box-shadow:none;
+        border:1px solid #c6c6c6;
+        margin-top:3px;
+        padding-left:2px;
+    }
+    .image-bot{
+        float:left;
+        width:4%;
+        margin-top:1px;
+    }
+    .image-me {
+        float: right;
+        width: 4%;
+        margin-top: 1px;
+        text-align:right;
+    }
+    .chat-bot{
+        float:left;
+        width:80%;
+        padding:5px;
+        text-align:left;
+        font-family:Georgia;
+    }
+    .chat-me {
+        float: right;
+        width: 80%;
+        padding: 5px;
+        text-align: right;
+        font-family: Georgia;
+    }
+    .clear {
+        clear: both;
+    }
+</style>
+
+
+<script>
+function pass_values(val) {
+   var pass_to_python = 1;
+
+                $.ajax(
+                {
+                    type:'POST',
+                    contentType:'application/json;charset-utf-08',
+                    dataType:'json',
+                    url:'http://127.0.0.1:5000/pass_val?value='+pass_to_python ,
+                    success:function (data) {
+                        var reply=data.reply;
+                        if (reply=="success")
+                        {
+                            return;
+                        }
+                        else
+                            {
+                            alert("some error ocured in session agent")
+                            }
+
+                    }
+                }
+            );
+}
+</script>
+
+
+<form action ="http://127.0.0.1:5000/pass_val" method="POST">
+    <div class="chatbody">
+        <div class="chatheader">
+            Chat Window
+        </div>
+        <div class="chat-details">
+        <!--    <p>{{bot_response}}</p> -->
+            
+            <div class="chat-sec">
+                <div class="image-me">
+                    <img src="/static/me.png" />
+                </div>
+                <div class="chat-me">
+                    {{my_query}}
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="chat-sec">
+                <div class="image-bot">
+                    <img src="/static/bot.png" />
+                </div>
+                <div class="chat-bot">
+                    {{bot_response}}
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="chat-form">
+            {% if type %}
+            <left>
+                    <div class="chat-form-area">
+                            <input type="text" class="chatarea" name="user_input" placeholder="typing mode..">
+                        </div>                        
+            </left>
+            {%endif %}
+            {% if listen %}
+
+            <left>listening mode..</left>
+            {%endif %}                 
+        </div>
+
+
+
+
+        </div>
+    </div>
+</form> 
+
+<center>
+    <div>
+        {% if speech_detecting %}       
+        <p>{{speech_detected}} </p>
+        {%endif%}
+    </div>
+    
+</center>
+
+
+
+<center>
+    <form action ="http://127.0.0.1:5000/pass_val" method="GET">
+            <button type="submit" name="speaker" onclick="pass_values(this)",value="1">
+                <img src="/static/mic.png" /> 
+            </button>      
+    </form>
+</center>
+
+
+<center>
+        <form action ="http://127.0.0.1:5000/pass_val" method="GET">
+                <button type="submit" name="type" onclick="pass_values(this)",value="1">
+                    <img src="/static/choto-type.png" /> 
+                </button>      
+        </form>
+</center>
+    
