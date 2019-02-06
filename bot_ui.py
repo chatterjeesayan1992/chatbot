@@ -66,8 +66,7 @@ def process():
 
     return render_template("page7.html",my_query=request.query_string)
     
-    #import pdb
-    #pdb.set_trace()
+  
     
 
 if __name__=='__main__':
