@@ -27,7 +27,7 @@ sample_rate = 48000
 chunk_size = 2048
 sr.Microphone.list_microphone_names()
 mic=sr.Microphone(device_index=1,sample_rate=sample_rate,chunk_size=chunk_size)
-df=pd.read_csv("C:/Projects/preprocessed_data.csv")
+df=pd.read_csv("preprocessed_data.csv")
 
 list_of_column_names=list(df.columns.values)
 morphed_names=[]
